@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+<link rel="stylesheet" type="text/css" media="screen" href="/css/screen.css" />
+<body roleId="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<!--<head th:replace="common/header :: navbar" />-->
+<div id="header" class="container_16">
+    <h1 id="logo-text"><a href="http://all-free-download.com/free-website-templates/">Bank Of Quadron</a></h1>
+    <p id="intro">banking simplified</p>
+    <div id="header-image"></div>
+</div>
+    
+
+<div class="alert alert-danger" th:if="${errorList != null}">
+    <h4 align="left">Errors:</h4>
+    <ul style="font-size: 11pt;text-align: left">
+       <li th:each="error : ${errorList}" th:text="${error}"></li>
+    </ul>
+</div>
+
+<div class="alert alert-success" th:if="${successSave != null}">
+ <span style="font-size: 11pt;text-align: left" th:text="${successSave}"></span>
+</div>
+
+<div class="container">
+    <div class="row main">
+        <div class="panel-heading">
+          
+                <h1>Register for Online Banking</h1>
+                <hr />
+           	       <div class="featured-post">
+          				<h4><a href="index">Login to QBank</a></h4>
+         			</div>
+		
+		<div class="main-login main-center">
+            <form class = "form-horizontal" method="post" th:action="@{/signup}" th:object="${user}">
+                <div class="form-group">
+                    <label for="firstName" class="form-control">First Name</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" th:field="*{firstName}" th:value="${user.firstName}" id="firstName" name="firstName" roleId="firstname"  placeholder="Enter your first name" required="required"/>
+                        	<span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Name Error</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName" class="form-control">Last Name</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" th:value="${user.lastName}" id="lastName" name="lastName" roleId="lastName"  placeholder="Enter your last name" required="required"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone" class="form-control">Contact</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-phone fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" th:value="${user.phone}" id="phone" name="phone" roleId="phone"  placeholder="xxx-xxx-xxxx" required="required"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="form-control">Your Email</label><span class="bg-danger pull-right" th:if="${emailExists}">Email already exists</span>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" th:value="${user.email}" id="email" name="email" roleId="email"  placeholder="Enter your Email" required="required"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="username" class="form-control">Username</label><span class="bg-danger pull-right" th:if="${usernameExists}">Username already exists</span>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" th:value="${user.username}" id="username" name="username" roleId="username"  placeholder="Enter your Username" required="required"/>
+                        </div>
+                    </div>
+                </div>
+	
+
+                <div class="form-group">
+                    <label for="password" class="form-control">Password</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                            <input type="password" class="form-control" th:value="${user.password}" id="password" name="password" roleId="password"  placeholder="Enter your Password" required="required"/>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input id="showPassword" type="checkbox" />Show Password
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                 <div class="form-group">
+                    <label for="password" class="form-control">Confirm Password</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                            <input type="password" class="form-control" th:value="${user.confPassword}" id="confPassword" name="confPassword" roleId="confPassword"  placeholder="Confirm your Password" required="required"/>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                
+                <div class="form-group">
+                    <label for="citizenship" class="form-control">Citizenship</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" th:value="${user.citizenship}" id="citizenship" name="citizenship" roleId="citizenship"  placeholder="Enter your citizenship" required="required"/>
+                        </div>
+                    </div>
+                </div>
+
+                <!--<div class="form-group">-->
+                    <!--<label for="confirm" class="cols-sm-2 control-label">Confirm Secret</label>-->
+                    <!--<div class="cols-sm-10">-->
+                        <!--<div class="input-group">-->
+                            <!--<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>-->
+                            <!--<input type="secret" class="form-control" name="confirm" roleId="confirm"  placeholder="Confirm your Secret" required="required"/>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                
+                 <div class="form-group">
+                    <label for="gender" class="form-control">Gender</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            <select class="form-control" th:value="${user.gender}" name="gender" id="gender">
+        						<option value="">Select Gender</option>
+        							<option th:each="gender : ${genderList}"
+                						th:value="${gender}"
+                						th:text="${gender}"
+                						th:selected="(${gender} == ${user.gender})">
+                					</option>
+    						</select>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+               <!--  <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select class="form-control" th:value="${user.gender}" name="gender" id="gender">
+                        <option disabled="disabled" selected="selected" > Select Gender</option>
+                        <option>M</option>
+                        <option>F</option>
+                    </select>
+                </div>  -->
+                
+                 <div class="form-group">
+                    <label for="dateString" class = "form-control">Date of birth</label>
+ 	 					<div class="cols-sm-10">
+          				<input type="date" class="form-control" th:field="${user.dob}" id="dob"/>
+                        <!--<span class="input-group-addon"><i class="fa fa-times" aria-hidden="true"></i></span>
+                        <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span> -->
+                        </div>
+      
+                </div>
+                
+                <div class="form-group">
+                    <label for="gender" class="form-control">Citizen Status</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            <select class="form-control" th:value="${user.citizenstat}" name="citizenstat" id="citizenstat">
+        						<option value="">Select Citizen Status</option>
+        							<option th:each="cstatus : ${cstatList}"
+                						th:value="${cstatus}"
+                						th:text="${cstatus}"
+                						th:selected="(${cstatus} == ${user.citizenstat})">
+                					</option>
+    						</select>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+              
+                 <div class="form-group">
+                    <label for="username" class="form-control">PAN</label><span class="bg-danger pull-right" th:if="${panExists}">PAN already exists</span>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" th:value="${user.pan}" id="pan" name="pan" roleId="pan"  placeholder="Enter your PAN" required="required"/>
+                        </div>
+                    </div>
+                </div>
+                
+                 <div class="form-group">
+                    <label for="gender" class="form-control">Account Type</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            <select class="form-control" th:value="${user.accntType}" name="accntType" id="accntType">
+        						<option value="">Select Account Type</option>
+        							<option th:each="accT : ${accList}"
+                						th:value="${accT}"
+                						th:text="${accT}"
+                						th:selected="(${accT} == ${user.accntType})">
+                					</option>
+    						</select>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="username" class="form-control">Branch Name</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" th:value="${user.branchname}" id="branchname" name="branchname" roleId="branchname"  placeholder="Enter your Branch Name" required="required"/>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="username" class="form-control">Initial Deposit Amount</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" th:value="${user.initDepAmt}" id="initDepAmt" name="initDepAmt" roleId="initDepAmt"  placeholder="Initial Deposit Amount" required="required"/>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="citizenship" class="form-control">City</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" th:value="${user.city}" id="city" name="city" roleId="city"  placeholder="Enter your city" required="required"/>
+                        </div>
+                    </div>
+                </div>
+                
+                 <div class="form-group">
+                    <label for="gender" class="form-control">State</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            <select class="form-control" th:value="${user.state}" name="state" id="state">
+        						<option value="">Select State</option>
+        							<option th:each="st : ${stateList}"
+                						th:value="${st}"
+                						th:text="${st}"
+                						th:selected="(${st} == ${user.state})">
+                					</option>
+    						</select>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                 <div class="form-group">
+                    <label for="gender" class="form-control">Country</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            <select class="form-control" th:value="${user.country}" name="country" id="country">
+        						<option value="">Select Country</option>
+        							<option th:each="co : ${countryList}"
+                						th:value="${co}"
+                						th:text="${co}"
+                						th:selected="(${co} == ${user.country})">
+                					</option>
+    						</select>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="form-group ">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Register</button>
+                </div>
+                
+                <hr />
+                
+				<div class="form-group ">
+                    <a  class="btn btn-info btn-lg btn-block login-button" th:href="@{/}">Cancel</a>
+                </div>
+            </form>
+           </div>
+       </div>
+    </div>
+</div>
+
+
+<div th:replace="common/header :: body-bottom-scripts" />
+
+</body>
+</html>
